@@ -1,5 +1,8 @@
 <p>
   header works!
-  <button (click)="headerAuth()">Auth</button>
+  <button (click)="getCode()">Authorize</button>
+  <button (click)="getToken()">Get Token</button>
 </p>
-<p>{{authContext$}}</p>
+<p>{{authContext$ | async | json}}</p>
+<input type="text"/>
+<button (click)="getPatient()">GetPatient</button>

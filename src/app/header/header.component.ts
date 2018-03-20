@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AUTH_SERVICE, AuthService } from '../shared/auth/auth.service';
+import { DATA_SERVICE, DataService } from '../shared/fhir-data/fhir-data.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -8,17 +9,28 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  public authContext$: Observable<any>;
+  public authToken$: Observable<any>;
+  public authCode$: Observable<any>;
+  public patient$: Observable<any>;
+  public patientQueryInput: string;
 
   constructor(
     @Inject(AUTH_SERVICE) public authService: AuthService,
+    @Inject(DATA_SERVICE) public dataService: DataService,
   ) { }
 
   ngOnInit() {
   }
 
-  public headerAuth(){
-    this.authContext$ = this.authService.getOauthToken();
+  public getToken() {
+    this.authToken$ = this.authService.getOauthToken();
   }
 
+  public getCode() {
+    //this.authCode$ = this.authService.getOauthCode();
+  }
+  
+  public getPatient() {
+    this.patient$ = Observable.fromPromise(this.dataService.getPatient(this.patientQueryInput));
+  }
 }
