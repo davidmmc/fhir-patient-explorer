@@ -10,6 +10,7 @@ const routes: Routes = [
     { path: 'practitioner', component: PractitionerComponent},
     { path: 'dashboard', component: DashboardComponent},
     { path: '', redirectTo: '/dashboard', pathMatch: 'full'}
+    { path: '**', redirectTo: '/dashboard'}
 ]
 
 @NgModule({
