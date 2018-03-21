@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "@ngrx/effects": "^5.2.0",
+    "@ngrx/store": "^5.2.0",
     "client-oauth2": "^4.1.0",
     "core-js": "^2.4.1",
     "oidc-client": "^1.4.1",

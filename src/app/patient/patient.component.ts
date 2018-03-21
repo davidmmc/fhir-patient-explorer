@@ -2,6 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DATA_SERVICE, DataService } from '../shared/fhir-data/fhir-data.service';
 import { Observable } from 'rxjs/Observable';
 
+import { Store } from '@ngrx/store';
+
+import * as state from '../app.state';
+import { Router } from '@angular/router';
+import { GetPatientAction } from '../shared/data-store';
+
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
@@ -12,14 +18,18 @@ export class PatientComponent implements OnInit {
   public patientQueryInput: string;
 
   constructor(
+    private store: Store<state.AppState>,
+    private router: Router,
     @Inject(DATA_SERVICE) public dataService: DataService,
-  ) { }
+  ) { 
+    this.patient$ = this.store.select(state.getPatientInfo);
+  }
 
   ngOnInit() {
   }
 
   public getPatient() {
-    this.patient$ = Observable.fromPromise(this.dataService.getPatient(this.patientQueryInput));
+    this.store.dispatch(new GetPatientAction(this.patientQueryInput));
   }
 
   updateSearchText(input: any) {

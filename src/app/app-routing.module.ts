@@ -9,7 +9,7 @@ const routes: Routes = [
     { path: 'patient', component: PatientComponent},
     { path: 'practitioner', component: PractitionerComponent},
     { path: 'dashboard', component: DashboardComponent},
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full'}
+    { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
     { path: '**', redirectTo: '/dashboard'}
 ]
 

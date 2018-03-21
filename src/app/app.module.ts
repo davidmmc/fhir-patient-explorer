@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+import { AppState, initialState, reducers, effects } from './app.state';
 import { AppComponent } from './app.component';
 import { AUTH_SERVICE, FhirAuthService } from './shared/auth/auth.service';
 import { DATA_SERVICE, FhirDataService } from './shared/fhir-data/fhir-data.service';
@@ -12,6 +13,8 @@ import { PractitionerComponent } from './practitioner/practitioner.component';
 import { PatientComponent } from './patient/patient.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     CommonModule,
     FormsModule,
+    StoreModule.forRoot(reducers, {initialState}),
+    EffectsModule.forRoot(effects),
   ],
   providers: [
     {provide: AUTH_SERVICE, useClass: FhirAuthService },
