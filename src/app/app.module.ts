@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -22,7 +24,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule,
+    FormsModule,
   ],
   providers: [
     {provide: AUTH_SERVICE, useClass: FhirAuthService },

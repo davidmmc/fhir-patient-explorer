@@ -1,3 +1,8 @@
-<p>
-  practitioner works!
-</p>
+<h2>Practitioner</h2>
+<input type="text"
+  [ngModel]="searchText$ | async"
+  (ngModelChange)="updateSearchText($event)"
+/>
+<div>{{practitionerQueryInput}}</div>
+<button (click)="getPracitioner()">GetPractitioner</button>
+<div>{{practitioner$ | async | json}}</div>

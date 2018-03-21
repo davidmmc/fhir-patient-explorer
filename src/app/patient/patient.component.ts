@@ -21,4 +21,9 @@ export class PatientComponent implements OnInit {
   public getPatient() {
     this.patient$ = Observable.fromPromise(this.dataService.getPatient(this.patientQueryInput));
   }
+
+  updateSearchText(input: any) {
+    console.log(input);
+    this.patientQueryInput = input;
+  }
 }

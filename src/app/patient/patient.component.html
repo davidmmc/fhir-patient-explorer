@@ -1,2 +1,8 @@
-<input type="text"/>
+<h2>Patient</h2>
+<input type="text"
+  [ngModel]="searchText$ | async"
+  (ngModelChange)="updateSearchText($event)"
+/>
+<div>{{patientQueryInput}}</div>
 <button (click)="getPatient()">GetPatient</button>
+<div>{{patient$ | async | json}}</div>
