@@ -11,12 +11,9 @@ import { Observable } from 'rxjs/Observable';
 export class HeaderComponent implements OnInit {
   public authToken$: Observable<any>;
   public authCode$: Observable<any>;
-  public patient$: Observable<any>;
-  public patientQueryInput: string;
 
   constructor(
     @Inject(AUTH_SERVICE) public authService: AuthService,
-    @Inject(DATA_SERVICE) public dataService: DataService,
   ) { }
 
   ngOnInit() {
@@ -28,9 +25,5 @@ export class HeaderComponent implements OnInit {
 
   public getCode() {
     //this.authCode$ = this.authService.getOauthCode();
-  }
-  
-  public getPatient() {
-    this.patient$ = Observable.fromPromise(this.dataService.getPatient(this.patientQueryInput));
   }
 }

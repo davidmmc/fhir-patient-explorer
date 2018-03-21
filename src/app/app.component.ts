@@ -7,7 +7,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Patient/Practitioner Explorer';
   prod = environment.production;
   clientId = environment.clientId;
 }
