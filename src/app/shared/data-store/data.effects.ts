@@ -7,6 +7,8 @@ import 'rxjs/add/operator/switchMap';
 import {
     GET_PATIENT_ACTION, GetPatientAction,
     PatientInfoUpdateAction,
+    GET_PRACTITIONER_ACTION, GetPractitionerAction,
+    PractitionerInfoUpdateAction,
 } from './data.actions';
 import { DATA_SERVICE, FhirDataService } from '../fhir-data/fhir-data.service';
 
@@ -23,4 +25,12 @@ export class FhirDataEffects {
         return Observable.fromPromise(this.fhirDataService.getPatient(a.payload));
     })
     .map((res) => new PatientInfoUpdateAction(res));
+
+  @Effect()
+  public practitionerInfo$ = this.action$.ofType(GET_PRACTITIONER_ACTION)
+    .switchMap((a: GetPractitionerAction) => {
+        return Observable.fromPromise(this.fhirDataService.getPractitioner(a.payload));
+    })
+    .map((res) => new PractitionerInfoUpdateAction(res));
+
 }

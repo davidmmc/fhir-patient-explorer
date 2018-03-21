@@ -2,7 +2,8 @@ import { Action } from '@ngrx/store';
 
 import { State } from './data.state';
 import {
-    PATIENT_INFO_UPDATE_ACTION
+    PATIENT_INFO_UPDATE_ACTION,
+    PRACTITIONER_INFO_UPDATE_ACTION,
 } from './data.actions';
 
 export function reducer(state: State, action: any): any {
@@ -10,6 +11,12 @@ export function reducer(state: State, action: any): any {
         case PATIENT_INFO_UPDATE_ACTION: {
             let dataState: State = Object.assign({}, state);
             dataState.patientInfo = action.payload;
+            return dataState; 
+        }
+
+        case PRACTITIONER_INFO_UPDATE_ACTION: {
+            let dataState: State = Object.assign({}, state);
+            dataState.practitionerInfo = action.payload;
             return dataState; 
         }
 

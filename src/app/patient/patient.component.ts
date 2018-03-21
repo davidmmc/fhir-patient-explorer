@@ -19,8 +19,6 @@ export class PatientComponent implements OnInit {
 
   constructor(
     private store: Store<state.AppState>,
-    private router: Router,
-    @Inject(DATA_SERVICE) public dataService: DataService,
   ) { 
     this.patient$ = this.store.select(state.getPatientInfo);
   }
@@ -33,7 +31,6 @@ export class PatientComponent implements OnInit {
   }
 
   updateSearchText(input: any) {
-    console.log(input);
     this.patientQueryInput = input;
   }
 }

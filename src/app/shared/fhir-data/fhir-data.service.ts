@@ -26,7 +26,7 @@ export class FhirDataService implements DataService {
     }
 
     public getPractitioner(query: string) { 
-        const q = query ? `?${query}` : '';
+        const q = query ? `${query}` : '';
         return this.queryFhirEndpoint(`Practitioner${q}`);
     }
 

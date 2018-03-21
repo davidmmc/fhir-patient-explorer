@@ -19,3 +19,4 @@ export const effects: Array<any> = [
 ]
 
 export const getPatientInfo = (s: AppState) => s.dataState.patientInfo;
+export const getPractitionerInfo = (s: AppState) => s.dataState.practitionerInfo;
