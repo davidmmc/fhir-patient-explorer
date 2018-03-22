@@ -14,5 +14,6 @@ export const environment = {
   redirectUri: 'http://localhost:4200/',
   postLogoutRedirectUri: 'http://localhost:4200/',
   baseFhir: 'https://ic-fhirworks.epic.com/interconnect-fhirworks-username/api/FHIR/DSTU2/',
+  baseRest: 'https://ic-fhirworks.epic.com/interconnect-fhirworks-username/api/epic/2015/',
   basicAuth: basicAuth,
 };

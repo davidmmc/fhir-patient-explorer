@@ -9,6 +9,8 @@ import { environment } from '../../../environments/environment';
 
 export interface DataService {
   getPatient(query: string): Promise<any>;
+  getPatientsOnList(query: string): Promise<any>;
+  getCondition(query: string): Promise<any>;
   getEncounter(query: string): Promise<any>;
   getPractitioner(query: string): Promise<any>;
 }
@@ -25,9 +27,19 @@ export class FhirDataService implements DataService {
         return this.queryFhirEndpoint(`Patient${q}`);
     }
 
+    public getPatientsOnList(listId: string) { 
+        const q = listId ? `${listId}` : '';
+        return this.queryRestEndpoint(`Clinical/Utility/GetPatientsOnSystemList/SystemList?SystemListID=${q}&SystemListIDType=INTERNAL&UserID=1&UserIDType=EXTERNAL`);
+    }
+
     public getPractitioner(query: string) { 
         const q = query ? `${query}` : '';
         return this.queryFhirEndpoint(`Practitioner${q}`);
+    }
+
+    public getCondition(query: string) { 
+        const q = query ? `?${query}` : '';
+        return this.queryFhirEndpoint(`Condition${q}`);
     }
 
     public getEncounter(query: string) { 
@@ -36,15 +48,23 @@ export class FhirDataService implements DataService {
     }
 
     private queryFhirEndpoint(url: string) {
+        const fhirUrl = `${environment.baseFhir}${url}`;
+        return this.queryEndpoint(fhirUrl);
+    }
+
+    private queryRestEndpoint(url: string) {
+        const restUrl = `${environment.baseRest}${url}`;
+        return this.queryEndpoint(restUrl);
+    }
+
+    private queryEndpoint(url: string) {
         const httpOptions = {
             headers: {
                 'Authorization': 'Basic RU1QJG1heW8wMjpub0xpcXVpZDJoZWFyPw=='
             }
         };
 
-        const fhirUrl = `${environment.baseFhir}${url}`;
-
-        return this.http.get(fhirUrl, httpOptions)
+        return this.http.get(url, httpOptions)
           .map((response: any) => {
               return response;
           }).toPromise();
