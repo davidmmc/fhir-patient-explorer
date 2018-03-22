@@ -3,7 +3,7 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-import { clientId, basicAuth, baseFhir, oauth } from './nocommit'; //clientId is an exported string
+import { clientId, basicAuth, baseFhir, baseRest, oauth } from './nocommit'; //clientId is an exported string
 //Note that oauth of nocommit file implements NoCommitAuth interface.  export const oauth: NoCommitAuth = {...}
 
 export interface NoCommitAuth {
@@ -24,6 +24,7 @@ export const environment = {
   postLogoutRedirectUri: oauth.redirectUri,
   oAuthAuthority: oauth.authorizeUri,
   baseFhir: baseFhir,
+  baseRest: baseRest,
   basicAuth: basicAuth,
   scopes: [...oauth.scopes]
 };
