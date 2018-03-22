@@ -3,16 +3,27 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-import { clientId, basicAuth } from './nocommit'; //clientId is an exported string
+import { clientId, basicAuth, baseFhir, oauth } from './nocommit'; //clientId is an exported string
+//Note that oauth of nocommit file implements NoCommitAuth interface.  export const oauth: NoCommitAuth = {...}
+
+export interface NoCommitAuth {
+  authorizeUri: string, //authorize Uri
+  tokenUri: string, //token uri once code available
+  redirectUri: string, //redirect Uri from auth
+  clientId: string, //clientId from the auth provider
+  scopes: Array<string>, //openid, others
+  resposeType: string, //code or token
+}
 
 export const environment = {
   production: false,
-  clientId: clientId,
-  oAuthAuthority: 'https://ic-fhirworks.epic.com/interconnect-fhirworks-oauth/oauth2/authorize',
-  authorizationUri: 'https://ic-fhirworks.epic.com/interconnect-fhirworks-oauth/oauth2/authorize',
-  tokenUri: 'https://ic-fhirworks.epic.com/interconnect-fhirworks-oauth/oauth2/token',
-  redirectUri: 'http://localhost:4200/',
-  postLogoutRedirectUri: 'http://localhost:4200/',
-  baseFhir: 'https://ic-fhirworks.epic.com/interconnect-fhirworks-username/api/FHIR/DSTU2/',
+  clientId: oauth.clientId,
+  authorizationUri: oauth.authorizeUri,
+  tokenUri: oauth.tokenUri,
+  redirectUri: oauth.redirectUri,
+  postLogoutRedirectUri: oauth.redirectUri,
+  oAuthAuthority: oauth.authorizeUri,
+  baseFhir: baseFhir,
   basicAuth: basicAuth,
+  scopes: [...oauth.scopes]
 };
