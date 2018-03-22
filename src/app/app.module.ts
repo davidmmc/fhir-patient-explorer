@@ -14,6 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { PatientListComponent } from './patient-list/patient-list.component';
+import { AssignmentComponent } from './assignment/assignment.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { EffectsModule } from '@ngrx/effects';
     HeaderComponent,
     DashboardComponent,
     PractitionerComponent,
-    PatientComponent
+    PatientComponent,
+    PatientListComponent,
+    AssignmentComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,0 +1,9 @@
+<ul>
+  <li *ngFor="let p of (patientList$ | async).Patients"
+  (click)="selectPatient(p)"
+  >
+    {{p.Name}}
+    {{p.Age}}
+    {{p.Sex}}
+  </li>
+</ul>

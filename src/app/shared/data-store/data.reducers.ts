@@ -4,6 +4,8 @@ import { State } from './data.state';
 import {
     PATIENT_INFO_UPDATE_ACTION,
     PRACTITIONER_INFO_UPDATE_ACTION,
+    PATIENT_LIST_UPDATE_ACTION,
+    SELECT_PATIENT_ACTION,
 } from './data.actions';
 
 export function reducer(state: State, action: any): any {
@@ -20,9 +22,21 @@ export function reducer(state: State, action: any): any {
             return dataState; 
         }
 
+        case PATIENT_LIST_UPDATE_ACTION: {
+            let dataState: State = Object.assign({}, state);
+            dataState.patientList = action.payload;
+            return dataState; 
+        }
+
+        case SELECT_PATIENT_ACTION: {
+            console.log("Selected a patient")
+            let dataState: State = Object.assign({}, state);
+            dataState.selectedPatient = action.payload;
+            return dataState; 
+        }
+
         default: {
             return state;
         }
     }
-
 }

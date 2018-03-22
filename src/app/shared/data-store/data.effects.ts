@@ -9,6 +9,8 @@ import {
     PatientInfoUpdateAction,
     GET_PRACTITIONER_ACTION, GetPractitionerAction,
     PractitionerInfoUpdateAction,
+    GET_PATIENT_LIST_ACTION, GetPatientListAction,
+    PatientListUpdatedAction,
 } from './data.actions';
 import { DATA_SERVICE, FhirDataService } from '../fhir-data/fhir-data.service';
 
@@ -33,4 +35,10 @@ export class FhirDataEffects {
     })
     .map((res) => new PractitionerInfoUpdateAction(res));
 
+  @Effect()
+  public patientList$ = this.action$.ofType(GET_PATIENT_LIST_ACTION)
+    .switchMap((a: GetPatientListAction) => {
+        return Observable.fromPromise(this.fhirDataService.getPatientsOnList(a.payload));
+    })
+    .map((res) => new PatientListUpdatedAction(res));
 }
