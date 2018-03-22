@@ -8,7 +8,7 @@ import { oauth } from '../environments/nocommit';
 
 export interface AuthService {
   //getCode(): Observable<any>;
-  doOAuth(): Observable<any>;
+  doOAuth(): Promise<void>;
 }
 
 export interface AccessTokenResponse {
@@ -57,19 +57,17 @@ export class OAuthService implements AuthService {
       clientId: environment.clientId
     }
 
-    return Observable.fromPromise(
-      this.fhirAuth.code.getToken(window.location.search, options)
-        .then(res => {
-          let st: AccessTokenResponse = {
-            access_token: res.accessToken,
-            expires_in: res.data.expires_in,
-            token_type: res.tokenType,
-          };
-          storeToken(st);
-        })
-        .catch((err) => {
-        })
-    )
+    this.fhirAuth.code.getToken(window.location.search, options)
+      .then(res => {
+        let st: AccessTokenResponse = {
+          access_token: res.accessToken,
+          expires_in: res.data.expires_in,
+          token_type: res.tokenType,
+        };
+        storeToken(st);
+      })
+      .catch((err) => {
+      })
   }
 }
 
