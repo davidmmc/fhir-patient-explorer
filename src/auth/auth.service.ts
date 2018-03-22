@@ -17,7 +17,7 @@ export interface AccessTokenResponse {
   expires_in: any
 }
 
-const LS_AUTH_TOKEN = "fhirAuthToken";
+export const LS_ACCESS_TOKEN = "fhirAuthToken";
 const TOKEN_EXPIRES_AT = "expiresAt";
 const EXPIRE_OFFSET = 1000 * 60 * 5; // 5 minutes
 
@@ -40,10 +40,22 @@ export class OAuthService implements AuthService {
       return;
     }
 
-    const authCode = queryStringHasAccessCode();
+    const authCode = queryStringHasParam('code');
 
     if (authCode) {
       this.getOauthToken();
+    }
+
+    //if have launch code still need to exchange for authorization code
+    else if (queryStringHasParam('launch')) {
+      const redirectSnippet = `redirect_uri=${encodeURIComponent(environment.redirectUri)}`;
+      const clientIdSnippet = `client_id=${environment.clientId}`;
+      const scopeSnippet = `scope=launch`;
+      const responseTypeSnippet = `response_type=code`;
+      const launchSnippet = `launch=${queryStringHasParam('launch')}`;
+      const launchCodeExchangeUri = `${environment.authorizationUri}?${clientIdSnippet}&${redirectSnippet}&${scopeSnippet}&${launchSnippet}&${responseTypeSnippet}`;
+      //console.log(launchCodeExchangeUri);
+      window.location.replace(launchCodeExchangeUri); //redirect to auth page
     }
 
     else {
@@ -77,12 +89,12 @@ function storeToken(tokenRes: AccessTokenResponse) {
     token_type: tokenRes.token_type,
   }
   st[TOKEN_EXPIRES_AT] = (new Date()).getTime() + (tokenRes.expires_in * 1000);
-  localStorage.setItem(LS_AUTH_TOKEN, JSON.stringify(st));
+  localStorage.setItem(LS_ACCESS_TOKEN, JSON.stringify(st));
 }
 
 function hasValidAccessToken() {
   let isValidAuthToken = false;
-  const strAuthToken = localStorage.getItem(LS_AUTH_TOKEN);
+  const strAuthToken = localStorage.getItem(LS_ACCESS_TOKEN);
   if(strAuthToken) {
     const authToken = JSON.parse(strAuthToken);
     const hasToken = authToken['access_token'] ? true : false;
@@ -93,8 +105,8 @@ function hasValidAccessToken() {
   return isValidAuthToken;
 }
 
-function queryStringHasAccessCode() {
-  const queryStringArr = window.location.search ? window.location.search.slice(1, -1).split('&') : [];
+function queryStringHasParam(paramName: string) {
+  const queryStringArr = window.location.search ? window.location.search.slice(1).split('&') : [];
   let queryStringObj = {};
   queryStringArr.forEach((element) => {
     if (element.indexOf('=')) {
@@ -102,6 +114,5 @@ function queryStringHasAccessCode() {
       queryStringObj[eleSplit[0]] = eleSplit[1];
     }
   });
-  return queryStringObj['code'];
+  return queryStringObj[paramName];
 }
- 

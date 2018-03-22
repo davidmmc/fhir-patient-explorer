@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
 
 import { environment } from '../../../environments/environment';
+import { LS_ACCESS_TOKEN } from '../../../auth/auth.service';
 
 export interface DataService {
   getPatient(query: string): Promise<any>;
@@ -19,8 +20,11 @@ export const DATA_SERVICE = new InjectionToken<DataService>('DataService');
 
 @Injectable()
 export class FhirDataService implements DataService {
+    accessToken: string = '';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+        this.accessToken = JSON.parse(localStorage.getItem(LS_ACCESS_TOKEN));
+    }
 
     public getPatient(query: string) { 
         const q = query ? `${query}` : '';
@@ -61,6 +65,19 @@ export class FhirDataService implements DataService {
         const httpOptions = {
             headers: {
                 'Authorization': 'Basic RU1QJG1heW8wMjpub0xpcXVpZDJoZWFyPw=='
+            }
+        };
+
+        return this.http.get(url, httpOptions)
+          .map((response: any) => {
+              return response;
+          }).toPromise();
+    }
+
+    private queryOAuthEndpoint(url: string) {
+        const httpOptions = {
+            headers: {
+                'Authorization': `bearer RU1QJG1heW8wMjpub0xpcXVpZDJoZWFyPw==`
             }
         };
 
