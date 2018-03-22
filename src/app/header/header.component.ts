@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AUTH_SERVICE, AuthService } from '../shared/auth/auth.service';
 import { DATA_SERVICE, DataService } from '../shared/fhir-data/fhir-data.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -12,18 +11,8 @@ export class HeaderComponent implements OnInit {
   public authToken$: Observable<any>;
   public authCode$: Observable<any>;
 
-  constructor(
-    @Inject(AUTH_SERVICE) public authService: AuthService,
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  public getToken() {
-    this.authToken$ = this.authService.getOauthToken();
-  }
-
-  public getCode() {
-    //this.authCode$ = this.authService.getOauthCode();
   }
 }

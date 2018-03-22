@@ -6,7 +6,6 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppState, initialState, reducers, effects } from './app.state';
 import { AppComponent } from './app.component';
-import { AUTH_SERVICE, FhirAuthService } from './shared/auth/auth.service';
 import { DATA_SERVICE, FhirDataService } from './shared/fhir-data/fhir-data.service';
 import { HeaderComponent } from './header/header.component';
 import { PractitionerComponent } from './practitioner/practitioner.component';
@@ -34,7 +33,6 @@ import { EffectsModule } from '@ngrx/effects';
     EffectsModule.forRoot(effects),
   ],
   providers: [
-    {provide: AUTH_SERVICE, useClass: FhirAuthService },
     {provide: DATA_SERVICE, useFactory: (http) => new FhirDataService(http), deps: [HttpClient]}
   ],
   bootstrap: [AppComponent]
