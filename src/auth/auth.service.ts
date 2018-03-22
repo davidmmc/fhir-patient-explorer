@@ -11,6 +11,16 @@ export interface AuthService {
   doOAuth(): Observable<any>;
 }
 
+export interface AccessTokenResponse {
+  access_token: string,
+  token_type: string,
+  expires_in: any
+}
+
+const LS_AUTH_TOKEN = "fhirAuthToken";
+const TOKEN_EXPIRES_AT = "expiresAt";
+const EXPIRE_OFFSET = 1000 * 60 * 5; // 5 minutes
+
 export class OAuthService implements AuthService {
   fhirAuth: ClientOAuth2;
 
@@ -25,7 +35,11 @@ export class OAuthService implements AuthService {
   }
 
   async doOAuth() {
-    //has auth code
+    //if has auth token in localStorage
+    if(hasValidAccessToken()) { 
+      return;
+    }
+
     const authCode = queryStringHasAccessCode();
 
     if (authCode) {
@@ -36,18 +50,6 @@ export class OAuthService implements AuthService {
       const uri = await this.fhirAuth.code.getUri();
       window.location.replace(uri); //redirect to auth page
     }
-    //return Observable.fromPromise(uri);
-    //const authToken = await this.fhirAuth.code.getToken();
-
-    //TODO - if code in URI
-
-    //if has code in URI
-
-    //if has auth token in localStorage
-
-    //else - init oauth
-
-    //return this.getOauthToken;
   }
 
   private getOauthToken() {
@@ -58,13 +60,39 @@ export class OAuthService implements AuthService {
     return Observable.fromPromise(
       this.fhirAuth.code.getToken(window.location.search, options)
         .then(res => {
-          console.log(res);
+          let st: AccessTokenResponse = {
+            access_token: res.accessToken,
+            expires_in: res.data.expires_in,
+            token_type: res.tokenType,
+          };
+          storeToken(st);
         })
         .catch((err) => {
-          console.log('Error', err);
         })
     )
   }
+}
+
+function storeToken(tokenRes: AccessTokenResponse) {
+  let st = {
+    access_token: tokenRes.access_token,
+    token_type: tokenRes.token_type,
+  }
+  st[TOKEN_EXPIRES_AT] = (new Date()).getTime() + (tokenRes.expires_in * 1000);
+  localStorage.setItem(LS_AUTH_TOKEN, JSON.stringify(st));
+}
+
+function hasValidAccessToken() {
+  let isValidAuthToken = false;
+  const strAuthToken = localStorage.getItem(LS_AUTH_TOKEN);
+  if(strAuthToken) {
+    const authToken = JSON.parse(strAuthToken);
+    const hasToken = authToken['access_token'] ? true : false;
+    if (authToken[TOKEN_EXPIRES_AT]) {
+      isValidAuthToken = (((new Date)).getTime() + EXPIRE_OFFSET) > authToken[TOKEN_EXPIRES_AT] ? false : true;
+    }
+  }
+  return isValidAuthToken;
 }
 
 function queryStringHasAccessCode() {
@@ -76,7 +104,6 @@ function queryStringHasAccessCode() {
       queryStringObj[eleSplit[0]] = eleSplit[1];
     }
   });
-  console.log(queryStringObj);
   return queryStringObj['code'];
 }
  
