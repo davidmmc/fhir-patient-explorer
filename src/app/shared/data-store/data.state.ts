@@ -3,6 +3,7 @@ export interface State {
     practitionerInfo: any;
     patientList: any;
     selectedPatient: any;
+    appointment: any;
 }
 
 export const initialState: State = {
@@ -10,4 +11,5 @@ export const initialState: State = {
     practitionerInfo: {},
     patientList: {},
     selectedPatient: {},
+    appointment: {},
 }

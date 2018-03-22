@@ -51,6 +51,13 @@ export class FhirDataService implements DataService {
         return this.queryFhirEndpoint(`Encounter${q}`);
     }
 
+    public makeAppointment(query: string) { 
+        const q = query ? `?${query}` : '';
+        //return this.queryFhirEndpoint(`Encounter${q}`);
+        console.log("Appointment")
+        return Promise.resolve("Appointment")
+    }
+
     private queryFhirEndpoint(url: string) {
         const fhirUrl = `${environment.baseFhir}${url}`;
         return this.queryEndpoint(fhirUrl);

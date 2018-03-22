@@ -1,1 +1,15 @@
-<div>{{selectedPatient$ | async | json}}</div>
+<div>
+  <div class="patient">
+    <div class="patient-info">
+      {{(selectedPatient$ | async).Name}} {{(selectedPatient$ | async).Age}} {{(selectedPatient$ | async).Sex}}
+    </div>
+    <div class="patient-conditions">CONDITIONS</div>
+  </div>
+  <ul>
+    <li *ngFor="let p of (providerList$ | async)" (click)="selectP(p)">
+      <span>{{p.name}}</span>
+      <span>{{p.valueId}}</span>
+      <span>{{p.specialty}}</span>
+    </li>
+  </ul>
+</div>

@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import * as state from '../app.state';
 import { Router } from '@angular/router';
-import { GetPatientListAction } from '../shared/data-store';
+import { GetPatientListAction, GetPractitionerAction, MakeApptAction } from '../shared/data-store';
 
 @Component({
   selector: 'app-assignment',
@@ -16,14 +16,20 @@ import { GetPatientListAction } from '../shared/data-store';
 
 export class AssignmentComponent implements OnInit {
   public selectedPatient$: Observable<any>;
+  public providerList$: Observable<any>;
 
   constructor(
     private store: Store<state.AppState>,
   ) { 
     this.selectedPatient$ = this.store.select(state.getSelectedPatient);
+    this.providerList$ = this.store.select(state.getPractitionerInfo);
   }
 
   ngOnInit() {
-    //this.store.dispatch(new GetPatientListAction(this.patientListId));
+    this.store.dispatch(new GetPractitionerAction('?family=family'));
+  }
+
+  selectP(p: any) {
+    this.store.dispatch(new MakeApptAction(p));
   }
 }

@@ -8,6 +8,8 @@ export const PRACTITIONER_INFO_UPDATE_ACTION: string = '[fhir-data] Practitioner
 export const GET_PATIENT_LIST_ACTION: string = '[fhir-data] Get Patient List Action';
 export const PATIENT_LIST_UPDATE_ACTION: string = '[fhir-data] Patient List Update Action';
 export const SELECT_PATIENT_ACTION: string = '[fhir-data] Select Patient Action';
+export const MAKE_APPT_ACTION: string = '[fhir-data] Make Appt Action';
+export const APPT_MADE_ACTION: string = '[fhir-data] Appt Made Action';
 
 export class GetPatientAction implements Action {
     readonly type: string = GET_PATIENT_ACTION;
@@ -41,5 +43,15 @@ export class PatientListUpdatedAction implements Action {
 
 export class SelectPatientAction implements Action {
     readonly type: string = SELECT_PATIENT_ACTION;
+    constructor(public payload: any){}
+}
+
+export class MakeApptAction implements Action {
+    readonly type: string = MAKE_APPT_ACTION;
+    constructor(public payload: any){}
+}
+
+export class ApptMadeAction implements Action {
+    readonly type: string = APPT_MADE_ACTION;
     constructor(public payload: any){}
 }
