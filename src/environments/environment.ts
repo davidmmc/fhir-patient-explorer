@@ -13,6 +13,7 @@ export interface NoCommitAuth {
   clientId: string, //clientId from the auth provider
   scopes: Array<string>, //openid, others
   resposeType: string, //code or token
+  baseOAuthFhir: string, // baseUrl + /api/FHIR/DSTU2
 }
 
 export const environment = {
@@ -24,6 +25,7 @@ export const environment = {
   postLogoutRedirectUri: oauth.redirectUri,
   oAuthAuthority: oauth.authorizeUri,
   baseFhir: baseFhir,
+  baseOAuthFhir: oauth.baseOAuthFhir,
   baseRest: baseRest,
   basicAuth: basicAuth,
   scopes: [...oauth.scopes]

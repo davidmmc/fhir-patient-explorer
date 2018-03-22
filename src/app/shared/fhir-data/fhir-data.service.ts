@@ -28,7 +28,7 @@ export class FhirDataService implements DataService {
 
     public getPatient(query: string) { 
         const q = query ? `${query}` : '';
-        return this.queryFhirEndpoint(`Patient${q}`);
+        return this.queryOAuthFhir(`Patient${q}`);
     }
 
     public getPatientsOnList(listId: string) { 
@@ -38,7 +38,7 @@ export class FhirDataService implements DataService {
 
     public getPractitioner(query: string) { 
         const q = query ? `${query}` : '';
-        return this.queryFhirEndpoint(`Practitioner${q}`);
+        return this.queryOAuthFhir(`Practitioner${q}`);
     }
 
     public getCondition(query: string) { 
@@ -54,6 +54,11 @@ export class FhirDataService implements DataService {
     private queryFhirEndpoint(url: string) {
         const fhirUrl = `${environment.baseFhir}${url}`;
         return this.queryEndpoint(fhirUrl);
+    }
+
+    private queryOAuthFhir(url: string) {
+        const oAuthFhirUrl = `${environment.baseOAuthFhir}${url}`;
+        return this.queryOAuthEndpoint(oAuthFhirUrl);
     }
 
     private queryRestEndpoint(url: string) {
@@ -77,9 +82,10 @@ export class FhirDataService implements DataService {
     private queryOAuthEndpoint(url: string) {
         const httpOptions = {
             headers: {
-                'Authorization': `bearer RU1QJG1heW8wMjpub0xpcXVpZDJoZWFyPw==`
+                'Authorization': `bearer ${this.accessToken['access_token']}`
             }
         };
+        console.log("access token", this.accessToken['access_token'])
 
         return this.http.get(url, httpOptions)
           .map((response: any) => {
