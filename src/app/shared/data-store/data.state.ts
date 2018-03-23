@@ -1,9 +1,16 @@
+export interface ActionPayload {
+    epiPatientId: string;
+    provId: string;
+    slotDate: string;
+    slotTime: string;
+    comment: string;
+}
 export interface State {
     patientInfo: any;
     practitionerInfo: any;
     patientList: any;
     selectedPatient: any;
-    appointment: any;
+    appointment: ActionPayload;
 }
 
 export const initialState: State = {
@@ -11,5 +18,5 @@ export const initialState: State = {
     practitionerInfo: {},
     patientList: {},
     selectedPatient: {},
-    appointment: {},
+    appointment: {} as ActionPayload,
 }

@@ -7,6 +7,7 @@ import 'rxjs/add/observable/fromPromise';
 
 import { environment } from '../../../environments/environment';
 import { LS_ACCESS_TOKEN } from '../../../auth/auth.service';
+import { ActionPayload } from '../data-store/data.state';
 
 export interface DataService {
   getPatient(query: string): Promise<any>;
@@ -93,12 +94,12 @@ export class FhirDataService implements DataService {
           }).toPromise();
     }
 
-    public makeAppointment(epiPatientId: string, provId: string, slotDate: string, slotTime: string, comment: string) { 
-        const epi = epiPatientId ? `${epiPatientId}` : '';
-        const prov = provId ? `${provId}` : '';
-        const date = slotDate ? `${slotDate}` : '03/26/2018';
-        const time = slotTime ? `${slotTime}` : '12:00';
-        const comm = comment ? `${comment}` : '';
+    public makeAppointment(ap: ActionPayload) { 
+        const epi = ap.epiPatientId ? `${ap.epiPatientId}` : '';
+        const prov = ap.provId ? `${ap.provId}` : '';
+        const date = ap.slotDate ? `${ap.slotDate}` : '03/26/2018';
+        const time = ap.slotTime ? `${ap.slotTime}` : '12:00';
+        const comm = ap.comment ? `${ap.comment}` : '';
         const restUrl = `${environment.baseRest}2012/Scheduling/Patient/ScheduleAppointment/Appointment`;
 
         const httpOptions = {
@@ -165,6 +166,7 @@ export class FhirDataService implements DataService {
 
         return this.http.put(restUrl, body, httpOptions)
           .map((response: any) => {
+              console.log("appt response", response)
               return response;
           }).toPromise();
         

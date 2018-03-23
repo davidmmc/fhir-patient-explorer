@@ -15,6 +15,7 @@ import {
     APPT_MADE_ACTION,
     ApptMadeAction,
 } from './data.actions';
+import { ActionPayload } from './data.state';
 import { DATA_SERVICE, FhirDataService } from '../fhir-data/fhir-data.service';
 
 @Injectable()
@@ -48,7 +49,10 @@ export class FhirDataEffects {
   @Effect()
   public appointment$ = this.action$.ofType(MAKE_APPT_ACTION)
     .switchMap((a: MakeApptAction) => {
+        console.log("Make appt", a.payload);
         return Observable.fromPromise(this.fhirDataService.makeAppointment(a.payload));
+        //return Observable.of("success");
+       // return Observable.fromPromise(this.fhirDataService.makeAppointment());
     })
     .map((res) => new ApptMadeAction(res));
 }

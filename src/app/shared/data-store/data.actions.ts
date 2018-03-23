@@ -1,4 +1,5 @@
 import { Action } from "@ngrx/store";
+import { ActionPayload } from "./data.state";
 
 export const GET_PATIENT_ACTION: string = '[fhir-data] Get Patient Action';
 export const PATIENT_INFO_UPDATE_ACTION: string = '[fhir-data] Patient Info Update Action';
@@ -10,6 +11,8 @@ export const PATIENT_LIST_UPDATE_ACTION: string = '[fhir-data] Patient List Upda
 export const SELECT_PATIENT_ACTION: string = '[fhir-data] Select Patient Action';
 export const MAKE_APPT_ACTION: string = '[fhir-data] Make Appt Action';
 export const APPT_MADE_ACTION: string = '[fhir-data] Appt Made Action';
+
+
 
 export class GetPatientAction implements Action {
     readonly type: string = GET_PATIENT_ACTION;
@@ -48,7 +51,7 @@ export class SelectPatientAction implements Action {
 
 export class MakeApptAction implements Action {
     readonly type: string = MAKE_APPT_ACTION;
-    constructor(public payload: any){}
+    constructor(public payload: ActionPayload){}
 }
 
 export class ApptMadeAction implements Action {
