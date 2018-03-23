@@ -1,12 +1,13 @@
 <div class="main-focus">
   <div class="patient">
     <div class="patient-info">
-      {{selectedPatient$ | async | json}}
-      {{(selectedPatient$ | async).Name}} {{(selectedPatient$ | async).Age}} {{(selectedPatient$ | async).Sex}}
+      <div><span class='vl'>Patient Name</span>{{(selectedPatient$ | async)?.name}}</div>
+      <div><span class='vl'>Age</span>{{(selectedPatient$ | async)?.age}}</div>
+      <div><span class='vl'>Sex</span>{{(selectedPatient$ | async)?.sex}}</div>
     </div>
     <div class="provider-info">
-      {{selectedProvider$ | async | json}}
-      <!--{{(selectedPRovider$ | async).Name}} {{(selectedPatient$ | async).Age}} {{(selectedPatient$ | async).Sex}}-->
+      <div><span class='vl'>Provider Name</span>{{(selectedProvider$ | async)?.name}}</div>
+      <div><span class="vl">Specialty:</span>{{(selectedProvider$ | async)?.specialty}}</div>
     </div>
   </div>
 

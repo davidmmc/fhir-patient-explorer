@@ -20,6 +20,26 @@ div {
 .patient-info {
     flex-basis: 2em;
     flex-grow: 0;
+    border: 1px solid #C1666B;
+    border-radius: 2px;
+    margin: 1em;
+    text-align: left;
+    padding: 1em;
+}
+
+.provider-info {
+    flex-basis: 2em;
+    flex-grow: 0;
+    border: 1px solid #06D6A0;
+    border-radius: 2px;
+    margin: 1em;
+    text-align: left;
+    padding: 1em;
+}
+
+.vl {
+    padding-right: 1em;
+    border-right: 2px solid #1B9AAA;
 }
 
 .patient-conditions {
