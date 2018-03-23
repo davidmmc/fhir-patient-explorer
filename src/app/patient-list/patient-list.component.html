@@ -1,3 +1,4 @@
+<div *ngIf="!((patientList$|async).Patients?.length)" class="loader">Loading...</div>
 <ul>
   <li *ngFor="let p of (patientList$ | async).Patients"
   (click)="selectPatient(p)"

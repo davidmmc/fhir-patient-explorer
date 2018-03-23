@@ -40,26 +40,46 @@ export function reducer(state: State, action: any): any {
 
         case SELECT_PATIENT_ACTION: {
             let dataState: State = Object.assign({}, state);
-            dataState.selectedPatient = action.payload.entry.map((p) => {
+            //dataState.selectedPatient = action.payload.entry.map((p) => {
+                /*
                 let idArr = pathOr([], ['PatientID'], p);
                 let epiId = idArr.filter((i) => {
                     return (pathOr('', ['PatientIDType'], i) == 'EPI') ? (pathOr('', ['PatientID'], i)) : '';
                 });
-                /*
                 let fhirId = pathOr([], ['PatientID'], p).filter((i) => {
                     return (pathOr('', ['PatientIDType'], i) == 'FHIR') ? (pathOr('', ['PatientID'], i)) : '';
                 });
-                */
                 return {
+                    name: p.Name,
+                    age: p.Age,
+                    sex: p.Sex,
+                    epiId: '',
+                    fhirId: '',
+                    */
+             //   }
+            let p = action.payload;
+
+            let idArr = pathOr([], ['PatientID'], p);
+            let epiIdArr = idArr.filter((i) => {
+                return (pathOr('', ['PatientIDType'], i) == 'EPI') ? (pathOr('', ['PatientID'], i)) : [];
+            });
+            let epiId = epiIdArr.length ? epiIdArr[0]['PatientID'] : '';
+
+            let fhirIdArr = idArr.filter((i) => {
+                return (pathOr('', ['PatientIDType'], i) == 'FHIR') ? (pathOr('', ['PatientID'], i)) : [];
+            });
+            let fhirId = epiIdArr.length ? epiIdArr[0]['PatientID'] : '';
+
+
+            dataState.selectedPatient = {
                     name: p.Name,
                     age: p.Age,
                     sex: p.Sex,
                     epiId: epiId,
                     fhirId: '',
-                }
-            })
+            }
 
-            dataState.selectedPatient = action.payload;
+            //dataState.selectedPatient = action.payload;
             return dataState; 
         }
 

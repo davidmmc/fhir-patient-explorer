@@ -5,6 +5,7 @@
     </div>
     <div class="patient-conditions">CONDITIONS</div>
   </div>
+  <div class="loader">Loading...</div>
   <ul>
     <li *ngFor="let p of (providerList$ | async)" (click)="selectP(p)">
       <span>{{p.name}}</span>
