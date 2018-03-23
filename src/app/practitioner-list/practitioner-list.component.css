@@ -1,9 +1,17 @@
-div {
+.main-focus {
     display: flex;
+    width: 80vw;
 }
 
 div {
     flex: 1 1 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    padding-left: 1em;
+    text-align: left;
 }
 
 .patient {

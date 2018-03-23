@@ -1,5 +1,6 @@
-div {
+.main-focus {
     display: flex;
+    width: 80vw;
 }
 
 div {
