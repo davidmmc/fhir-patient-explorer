@@ -18,8 +18,8 @@ import { ActionPayload } from '../shared/data-store/data.state';
 
 export class AssignmentComponent implements OnInit {
   public selectedPatient$: Observable<any>;
-  public selectedPatientSub$: Subscription;
-  public selectedProviderSub$: Subscription;
+  public selectedPatientSub: Subscription;
+  public selectedProviderSub: Subscription;
   public selectedProvider$: Observable<any>;
   public providerList$: Observable<any>;
   public apptDate: string;
@@ -48,6 +48,15 @@ export class AssignmentComponent implements OnInit {
       slotTime: '08:00',
       comment: '',
     }
+
+    this.selectedPatientSub = this.selectedPatient$.subscribe((i) => {
+      this.appointment.epiPatientId = i['epiId'];
+    });
+
+    this.selectedProviderSub = this.selectedProvider$.subscribe((i) => {
+      this.appointment.provId= i['valueId'];
+    });
+
   }
 
   ngOnDestroy() {

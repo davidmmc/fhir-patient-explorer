@@ -6,6 +6,7 @@
       <div><span class='vl'>Sex</span>{{(selectedPatient$ | async)?.sex}}</div>
     </div>
     <div class="provider-info">
+      {{(selectedProvider$ | async | json)}}
       <div><span class='vl'>Provider Name</span>{{(selectedProvider$ | async)?.name}}</div>
       <div><span class="vl">Specialty:</span>{{(selectedProvider$ | async)?.specialty}}</div>
     </div>
