@@ -78,14 +78,6 @@ export function reducer(state: State, action: any): any {
                     epiId: epiId,
                     fhirId: '',
             }
-
-            //dataState.selectedPatient = action.payload;
-            return dataState; 
-        }
-
-        case APPT_MADE_ACTION: {
-            let dataState: State = Object.assign({}, state);
-            dataState.appointment = action.payload;
             return dataState; 
         }
 
@@ -97,7 +89,7 @@ export function reducer(state: State, action: any): any {
 
         case APPT_MADE_ACTION: {
             let dataState: State = Object.assign({}, state);
-            dataState = action.payload;
+            dataState.apptConfirm = action.payload;
             return dataState; 
         }
 
