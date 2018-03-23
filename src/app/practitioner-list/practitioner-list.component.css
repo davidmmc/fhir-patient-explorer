@@ -1,0 +1,22 @@
+div {
+    display: flex;
+}
+
+div {
+    flex: 1 1 0;
+}
+
+.patient {
+    display: flex;
+    flex-direction: column;
+}
+
+.patient-info {
+    flex-basis: 2em;
+    flex-grow: 0;
+}
+
+.patient-conditions {
+    flex-grow: 0;
+}
+

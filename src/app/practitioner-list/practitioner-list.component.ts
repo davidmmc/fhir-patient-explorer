@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 import { GetPatientListAction, GetPractitionerAction, MakeApptAction } from '../shared/data-store';
 
 @Component({
-  selector: 'app-assignment',
-  templateUrl: './assignment.component.html',
-  styleUrls: ['./assignment.component.css']
+  selector: 'app-practitioner-list',
+  templateUrl: './practitioner-list.component.html',
+  styleUrls: ['./practitioner-list.component.css']
 })
 
-export class AssignmentComponent implements OnInit {
+export class PractitionerListComponent implements OnInit {
   public selectedPatient$: Observable<any>;
   public providerList$: Observable<any>;
 
@@ -30,8 +30,8 @@ export class AssignmentComponent implements OnInit {
     this.store.dispatch(new GetPractitionerAction('?family=family'));
   }
 
-  confirmAppt(p: any) {
+  selectP(p: any) {
     this.store.dispatch(new MakeApptAction(p));
-    this.router.navigateByUrl('/confirmation')
+    this.router.navigateByUrl('/assignment')
   }
 }

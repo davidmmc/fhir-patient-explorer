@@ -20,6 +20,7 @@ export class PatientListComponent implements OnInit {
 
   constructor(
     private store: Store<state.AppState>,
+    private router: Router,
   ) { 
     this.patientList$ = this.store.select(state.getPatientList);
   }
@@ -30,5 +31,6 @@ export class PatientListComponent implements OnInit {
 
   selectPatient(patient: any) {
     this.store.dispatch(new SelectPatientAction(patient));
+    this.router.navigateByUrl('/practitioner-list')
   }
 }

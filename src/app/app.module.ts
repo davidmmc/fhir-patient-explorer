@@ -16,6 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { AssignmentComponent } from './assignment/assignment.component';
+import { PractitionerListComponent } from './practitioner-list/practitioner-list.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { AssignmentComponent } from './assignment/assignment.component';
     PractitionerComponent,
     PatientComponent,
     PatientListComponent,
-    AssignmentComponent
+    AssignmentComponent,
+    PractitionerListComponent,
+    ConfirmationComponent
   ],
   imports: [
     AppRoutingModule,
