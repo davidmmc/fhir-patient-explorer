@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DATA_SERVICE, DataService } from '../shared/fhir-data/fhir-data.service';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 
@@ -17,6 +18,9 @@ import { ActionPayload } from '../shared/data-store/data.state';
 
 export class AssignmentComponent implements OnInit {
   public selectedPatient$: Observable<any>;
+  public selectedPatientSub$: Subscription;
+  public selectedProviderSub$: Subscription;
+  public selectedProvider$: Observable<any>;
   public providerList$: Observable<any>;
   public apptDate: string;
   public apptTime: string;
@@ -28,6 +32,7 @@ export class AssignmentComponent implements OnInit {
     private router: Router,
   ) { 
     this.selectedPatient$ = this.store.select(state.getSelectedPatient);
+    this.selectedProvider$ = this.store.select(state.getSelectedProvider);
     this.providerList$ = this.store.select(state.getPractitionerInfo);
   }
 
@@ -41,12 +46,32 @@ export class AssignmentComponent implements OnInit {
       provId: '1000',
       slotDate: '03/26/2018',
       slotTime: '08:00',
-      comment: 'Test Comment',
+      comment: '',
     }
+  }
+
+  ngOnDestroy() {
+
   }
 
   confirmAppt(p: any) {
     this.store.dispatch(new MakeApptAction(this.appointment));
     this.router.navigateByUrl('/confirmation')
+  }
+
+  updateApptTime(input: any) {
+    this.appointment.slotTime = input;
+  }
+
+  updateApptDate(input: any) {
+    let date = new Date(input);
+    var day = date.getDate() + 1;
+    var monthIndex = date.getMonth() + 1;
+    var year = date.getFullYear();
+    this.appointment.slotDate = `${monthIndex}/${day}/${year}`;
+  }
+
+  updateApptComment(input: any) {
+    this.appointment.comment = input;
   }
 }

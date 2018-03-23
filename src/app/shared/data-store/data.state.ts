@@ -10,6 +10,7 @@ export interface State {
     practitionerInfo: any;
     patientList: any;
     selectedPatient: any;
+    selectedProvider: any;
     appointment: ActionPayload;
 }
 
@@ -18,5 +19,6 @@ export const initialState: State = {
     practitionerInfo: {},
     patientList: {},
     selectedPatient: {},
+    selectedProvider: {},
     appointment: {} as ActionPayload,
 }

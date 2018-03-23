@@ -1,17 +1,21 @@
 <div class="main-focus">
   <div class="patient">
     <div class="patient-info">
+      {{selectedPatient$ | async | json}}
       {{(selectedPatient$ | async).Name}} {{(selectedPatient$ | async).Age}} {{(selectedPatient$ | async).Sex}}
     </div>
-    <div class="patient-conditions">CONDITIONS</div>
+    <div class="provider-info">
+      {{selectedProvider$ | async | json}}
+      <!--{{(selectedPRovider$ | async).Name}} {{(selectedPatient$ | async).Age}} {{(selectedPatient$ | async).Sex}}-->
+    </div>
   </div>
 
   <div class="appointment">
-    Appointment Date: <input type="text" ng-model="apptDate" />
+    Appointment Date: <input type="date" [ngModel]="apptDate$ | async" (ngModelChange)="updateApptDate($event)"/>
     <br/>
-    Appointment Time: <input type="text" ng-model="apptTime" />
+    Appointment Time: <input type="time" [ngModel]="apptTime$ | async" (ngModelChange)="updateApptTime($event)"/>
     <br/>
-    Comment: <input type="text" ng-model="apptComment" />
+    Comment: <input type="text" [ngModel]="apptComment$ | async" (ngModelChange)="updateApptComment($event)"/>
     <br/>
     <button (click)="confirmAppt()">Confirm</button>
   </div>

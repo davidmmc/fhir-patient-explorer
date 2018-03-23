@@ -11,6 +11,7 @@ export const PATIENT_LIST_UPDATE_ACTION: string = '[fhir-data] Patient List Upda
 export const SELECT_PATIENT_ACTION: string = '[fhir-data] Select Patient Action';
 export const MAKE_APPT_ACTION: string = '[fhir-data] Make Appt Action';
 export const APPT_MADE_ACTION: string = '[fhir-data] Appt Made Action';
+export const SELECT_PROVIDER_ACTION: string = '[fhir-data] Select Provider Action';
 
 
 
@@ -46,6 +47,11 @@ export class PatientListUpdatedAction implements Action {
 
 export class SelectPatientAction implements Action {
     readonly type: string = SELECT_PATIENT_ACTION;
+    constructor(public payload: any){}
+}
+
+export class SelectProviderAction implements Action {
+    readonly type: string = SELECT_PROVIDER_ACTION;
     constructor(public payload: any){}
 }
 

@@ -7,6 +7,7 @@ import {
     PRACTITIONER_INFO_UPDATE_ACTION,
     PATIENT_LIST_UPDATE_ACTION,
     SELECT_PATIENT_ACTION,
+    SELECT_PROVIDER_ACTION,
     APPT_MADE_ACTION,
 } from './data.actions';
 
@@ -39,6 +40,25 @@ export function reducer(state: State, action: any): any {
 
         case SELECT_PATIENT_ACTION: {
             let dataState: State = Object.assign({}, state);
+            dataState.selectedPatient = action.payload.entry.map((p) => {
+                let idArr = pathOr([], ['PatientID'], p);
+                let epiId = idArr.filter((i) => {
+                    return (pathOr('', ['PatientIDType'], i) == 'EPI') ? (pathOr('', ['PatientID'], i)) : '';
+                });
+                /*
+                let fhirId = pathOr([], ['PatientID'], p).filter((i) => {
+                    return (pathOr('', ['PatientIDType'], i) == 'FHIR') ? (pathOr('', ['PatientID'], i)) : '';
+                });
+                */
+                return {
+                    name: p.Name,
+                    age: p.Age,
+                    sex: p.Sex,
+                    epiId: epiId,
+                    fhirId: '',
+                }
+            })
+
             dataState.selectedPatient = action.payload;
             return dataState; 
         }
@@ -46,6 +66,12 @@ export function reducer(state: State, action: any): any {
         case APPT_MADE_ACTION: {
             let dataState: State = Object.assign({}, state);
             dataState.appointment = action.payload;
+            return dataState; 
+        }
+
+        case SELECT_PROVIDER_ACTION: {
+            let dataState: State = Object.assign({}, state);
+            dataState.selectedProvider = action.payload;
             return dataState; 
         }
 

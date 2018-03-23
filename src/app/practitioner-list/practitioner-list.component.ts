@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import * as state from '../app.state';
 import { Router } from '@angular/router';
-import { GetPatientListAction, GetPractitionerAction, MakeApptAction } from '../shared/data-store';
+import { GetPatientListAction, GetPractitionerAction, MakeApptAction, SelectProviderAction } from '../shared/data-store';
 
 @Component({
   selector: 'app-practitioner-list',
@@ -31,7 +31,7 @@ export class PractitionerListComponent implements OnInit {
   }
 
   selectP(p: any) {
-    this.store.dispatch(new MakeApptAction(p));
+    this.store.dispatch(new SelectProviderAction(p));
     this.router.navigateByUrl('/assignment')
   }
 }

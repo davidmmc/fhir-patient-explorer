@@ -22,3 +22,4 @@ export const getPatientInfo = (s: AppState) => s.dataState.patientInfo;
 export const getPractitionerInfo = (s: AppState) => s.dataState.practitionerInfo;
 export const getPatientList = (s: AppState) => s.dataState.patientList;
 export const getSelectedPatient = (s: AppState) => s.dataState.selectedPatient;
+export const getSelectedProvider = (s: AppState) => s.dataState.selectedProvider;
