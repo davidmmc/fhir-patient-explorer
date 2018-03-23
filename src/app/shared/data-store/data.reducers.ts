@@ -95,6 +95,12 @@ export function reducer(state: State, action: any): any {
             return dataState; 
         }
 
+        case APPT_MADE_ACTION: {
+            let dataState: State = Object.assign({}, state);
+            dataState = action.payload;
+            return dataState; 
+        }
+
         default: {
             return state;
         }

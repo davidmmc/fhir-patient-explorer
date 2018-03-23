@@ -51,8 +51,6 @@ export class FhirDataEffects {
     .switchMap((a: MakeApptAction) => {
         console.log("Make appt", a.payload);
         return Observable.fromPromise(this.fhirDataService.makeAppointment(a.payload));
-        //return Observable.of("success");
-       // return Observable.fromPromise(this.fhirDataService.makeAppointment());
     })
     .map((res) => new ApptMadeAction(res));
 }

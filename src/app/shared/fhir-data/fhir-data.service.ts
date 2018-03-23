@@ -86,7 +86,6 @@ export class FhirDataService implements DataService {
                 'Authorization': `bearer ${this.accessToken['access_token']}`
             }
         };
-        console.log("access token", this.accessToken['access_token'])
 
         return this.http.get(url, httpOptions)
           .map((response: any) => {
