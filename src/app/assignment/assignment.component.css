@@ -12,6 +12,11 @@ div {
     flex-direction: column;
 }
 
+.appointment {
+    display: flex;
+    flex-direction: column;
+}
+
 .patient-info {
     flex-basis: 2em;
     flex-grow: 0;

@@ -17,6 +17,9 @@ import { GetPatientListAction, GetPractitionerAction, MakeApptAction } from '../
 export class AssignmentComponent implements OnInit {
   public selectedPatient$: Observable<any>;
   public providerList$: Observable<any>;
+  public apptDate: string;
+  public apptTime: string;
+  public apptComment: string;
 
   constructor(
     private store: Store<state.AppState>,
@@ -28,6 +31,9 @@ export class AssignmentComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new GetPractitionerAction('?family=family'));
+    this.apptComment = "This was created at FHIRWorks!";
+    this.apptDate = "03/26/2018";
+    this.apptTime = "08:00";
   }
 
   confirmAppt(p: any) {

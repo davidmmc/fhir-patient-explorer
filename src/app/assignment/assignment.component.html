@@ -5,5 +5,15 @@
     </div>
     <div class="patient-conditions">CONDITIONS</div>
   </div>
+
+  <div class="appointment">
+    Appointment Date: <input type="text" ng-model="apptDate" />
+    <br/>
+    Appointment Time: <input type="text" ng-model="apptTime" />
+    <br/>
+    Comment: <input type="text" ng-model="apptComment" />
+    <br/>
+    <button (click)="confirmAppt()">Confirm</button>
+  </div>
 </div>
-<button (click)="confirmAppt()">Confirm</button>
+
